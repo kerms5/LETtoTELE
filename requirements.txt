@@ -1,0 +1,4 @@
+cloudscraper
+feedparser
+requests
+BeautifulSoup4
