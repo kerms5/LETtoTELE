@@ -28,7 +28,15 @@ def getfeeds():
 def monitor():
     # 获取所有rss链接内数据，并进行简单的数据美化处理
     for feed in feeds:
-        rawdata = scraper.get(feed).text
+        # 增加一个try语句，防止在获取信息时出现错误导致整个项目停止。
+        try:
+            rawdata = scraper.get(feed).text
+        except:
+            massage = '获取RSS信息失败，将在5分钟之后再次尝试'
+            uri = baseuri+token+method+chat_id+'&text='+massage+'&parse_mode=html'
+            requests.get(uri)
+            time.sleep(60*5)
+            break
         for entry in feedparser.parse(rawdata)['entries']:
             # 用beautifulsoup处理内容预览字段（原文为html格式），这里只截取第一段。
             # entry['summary'] = (BeautifulSoup(entry['summary'],'lxml').p).contents[0]
@@ -71,9 +79,9 @@ except:
     pass
 # 获取所有rss链接
 getfeeds()
-# 监控，每四分钟进行一次刷新
+# 监控，每5分钟进行一次刷新
 while True:
     monitor()
-    time.sleep(4*60)
+    time.sleep(5*60)
 
 conn.close()
