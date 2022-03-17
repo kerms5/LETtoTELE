@@ -19,6 +19,8 @@ token = ""  # 机器人 TOKEN
 
 接着使用`pip install -r requirements.txt`安装依赖。
 
+>如果出现安装lxml报错的情况，使用`sudo apt-get install libxml2-dev libxslt1-dev`安装lxml依赖。
+
 使用`python3 run.py`即可运行服务。另外，可以使用screen命令在后台运行。
 
 首次运行的初始化：基于上面的基本逻辑，如果你首次运行此服务，此服务将会把所有可以获取的历史记录全部发送到BOT，为了避免这种现象，默认将代码中的第43行进行了注释，运行一次之后，再取消注释，，重新运行，接下来发送的就全部是新帖了。
